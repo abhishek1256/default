@@ -22,7 +22,7 @@ import soundfile
 
 def load_model():
     K.clear_session()
-    model = tf.keras.models.load_model(r"D:\\major_final\\best1\\Flipkart-GRID-Final-master\\FlaskNoGUI\\Model\\gbl_model.h5", compile=False)
+    model = tf.keras.models.load_model(r"gbl_model.h5", compile=False)
     return model
 
 def inputProcess(filepath, A=2000, L=110):
@@ -47,8 +47,8 @@ model=load_model()
 @app.route('/')
 def index():
     import os
-    if os.path.exists(r"D:\\major_final\\major\\major_run\\Flipkart-GRID-Final-master\\FlaskNoGUI\\static\\TDB_Prediction.flac"):
-        os.remove("D:\\major_final\\major\\major_run\\Flipkart-GRID-Final-master\\FlaskNoGUI\\static\\TDB_Prediction.flac")
+    if os.path.exists(r"static\\TDB_Prediction.flac"):
+        os.remove("static\\TDB_Prediction.flac")
     return render_template('upload.html')
 '''
 @app.route('/static/TDB_Prediction.flac')
@@ -81,7 +81,7 @@ def upload_file():
     print("file is:",file)
     
     denoised_arr = model.predict([arr_reshaped, np.zeros((1, 2000*110))])
-    path=r"D:\major_final\major\major_run\Flipkart-GRID-Final-master\FlaskNoGUI\static"
+    path=r"static"
     path=path+'\TDB_Prediction.flac'
         
     wavCreator(path, denoised_arr)
